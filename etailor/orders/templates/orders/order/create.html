@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Your Shopping Cart| Checkout
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row" style="margin-top: 6%">
+
+
+            <div class="col-md-8">
+                <h4 class="page-header">Checkout</h4>
+                <form action="." method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}<br>
+                
+
+                    <input type="submit" class="btn btn-primary" value="Submit order">
+                </form>
+            </div>
+
+
+
+
+
+            <div class="col-md-4">
+                <div class="page-header">
+                    Your Order
+                </div>
+                <ul class="list-group">
+                    {% for item in cart %}
+                        <li class="list-group-item">
+                        {{ item.quantity }} * {{ item.product.name }}
+                        <span> Tk.{{ item.total_price }}</span>
+                        </li>
+
+                    {% endfor %}
+                      <ul class="list-group">
+                        <li class="list-group-item">Delivary Fee 00 Tk</li>
+                        <li class="list-group-item">Other Fee  00 Tk</li>
+                      </ul>
+                <li class="list-group-item active">Total Cost: Tk.{{ cart.get_total_price }}</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
